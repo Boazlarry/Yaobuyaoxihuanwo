@@ -689,6 +689,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 1255521596677274763, guid: 3a696268e4454c84b9bae9ce50d66be8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 1255521596677274762, guid: 3a696268e4454c84b9bae9ce50d66be8,
         type: 3}
       propertyPath: m_LocalPosition.x
