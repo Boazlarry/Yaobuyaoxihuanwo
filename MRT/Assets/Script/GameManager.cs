@@ -11,11 +11,10 @@ public class GameManager : MonoBehaviour
     // 플레이어매니저 클래스를 생성
     public PlayerManager player = new PlayerManager();
     public UIManager UI = UIManager.instance;
-    // 재료 바구니들을 참조할 수 있는 리스트
-    public List<Bucket> buckets = new List<Bucket>();
-
+    public List<Bucket> buckets;
     int price;
 
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -25,10 +24,10 @@ public class GameManager : MonoBehaviour
         instance = this;
         // 스크린 비율 설정
 		Screen.SetResolution(1920,1080, true);
-		Debug.Log("게임시작");
-        
-        
+        buckets = player.buckets;
 
+		Debug.Log("게임시작");
+    
     }
 
     // Update is called once per frame

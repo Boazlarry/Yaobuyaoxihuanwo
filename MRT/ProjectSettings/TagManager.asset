@@ -13,7 +13,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - ingPn
   - 
   - 
   - 
@@ -41,6 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: 1
+  - name: UI
     uniqueID: 900416003
+    locked: 0
+  - name: ingPn
+    uniqueID: 1293083017
     locked: 0

@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
-public class Bucket : MonoBehaviour
+[Serializable]
+public class Bucket
 {
     public Ingredients ing;
     public int amount;

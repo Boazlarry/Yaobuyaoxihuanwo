@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class PlayerManager
 {
-    public static PlayerManager instance;
     public int money = 0;
     public int peoplePTime = 0;
     public int time = 0;
-
+    public List<Bucket> buckets = new List<Bucket>();
 }

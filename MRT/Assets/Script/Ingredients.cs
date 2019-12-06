@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
-public class Ingredients : MonoBehaviour
+[Serializable]
+public class Ingredients
 {
     public int people;
     public int price;

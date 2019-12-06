@@ -10,9 +10,11 @@ public class UIManager : MonoBehaviour
     public Text money;
     public Text people;
     public Text time;
-    public List<GameObject> buckets_UI = new List<GameObject>();
+    public GameObject optionPan;
+    public List<GameObject> buckets_UI;
     public List<Bucket> buckets;
-
+    public List<Ingredients> ingredients;
+    
     void Start()
     {
         instance=this;
@@ -43,5 +45,22 @@ public class UIManager : MonoBehaviour
             }
         }
         
+    }
+    public void buttonClick(GameObject obj){
+    if (obj.activeSelf) obj.SetActive(false);
+    else obj.SetActive(true);
+    }
+    
+    public void buttonClickOptPan(GameObject obj){
+    if (!optionPan) {
+        obj.SetActive(true);
+        optionPan = obj;
+    }
+    if (obj.Equals(optionPan)) return;
+    else {
+        obj.SetActive(true);
+        optionPan.SetActive(false);
+        optionPan = obj;
+        }
     }
 }
