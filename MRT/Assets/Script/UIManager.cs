@@ -46,6 +46,8 @@ public class UIManager : MonoBehaviour
         }
         
     }
+    
+    // UI에서 소스창 열고 닫을 때 사용 
     public void buttonClick(GameObject obj){
     if (obj.activeSelf) obj.SetActive(false);
     else obj.SetActive(true);
