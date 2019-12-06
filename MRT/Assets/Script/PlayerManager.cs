@@ -4,20 +4,9 @@ using UnityEngine;
 
 public class PlayerManager
 {
+    public static PlayerManager instance;
+    public int money = 0;
+    public int peoplePTime = 0;
+    public int time = 0;
 
-    public int money;
-    public int personPTime;
-    public int date;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

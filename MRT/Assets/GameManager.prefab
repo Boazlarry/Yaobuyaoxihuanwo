@@ -48,3 +48,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4318d38a9c804784082682a587ac17f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  UI: {fileID: 0}
+  buckets: []
