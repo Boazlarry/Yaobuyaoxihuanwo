@@ -31,8 +31,8 @@ public class UIManager : MonoBehaviour
         money.text = GameManager.instance.player.money.ToString();
         people.text = GameManager.instance.player.peoplePTime.ToString();
         time.text = GameManager.instance.player.time.ToString() + " 시간";
-
-        buckets = GameManager.instance.buckets;
+       
+       buckets = GameManager.instance.buckets;
 
         foreach (Bucket bucket in buckets)
         {
@@ -51,6 +51,7 @@ public class UIManager : MonoBehaviour
     }
     
     public void buttonClickOptPan(GameObject obj){
+    // 활성화된 옵션팬이 없는 경우
     if (!optionPan) {
         obj.SetActive(true);
         optionPan = obj;
