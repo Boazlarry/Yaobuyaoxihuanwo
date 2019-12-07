@@ -74,7 +74,9 @@ public class GameManager : MonoBehaviour
                 player.peoplePTime += bucket.ing.people;
                 price += bucket.ing.price;
             }
-            if (bucket.expiration == 0 || bucket.amount == 0) buckets.Remove(bucket);
+            else if (bucket.expiration == 0 || bucket.amount == 0){
+                bucket.init();
+            };
          
         }
         player.money += player.peoplePTime * (price*100);

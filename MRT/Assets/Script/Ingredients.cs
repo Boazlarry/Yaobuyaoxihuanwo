@@ -11,6 +11,7 @@ public class Ingredients
     public int price;
     public Sprite img;
     public string ingName;
+    public int expiration;
 
     // Start is called before the first frame update
     void Start()
