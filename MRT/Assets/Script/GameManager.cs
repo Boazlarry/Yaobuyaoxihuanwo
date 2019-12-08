@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -59,29 +59,53 @@ public class GameManager : MonoBehaviour
      */
     IEnumerator Timer()
     {
-        yield return new WaitForSeconds(3.0f);
+        
 
         price = 0;
-        player.peoplePTime = 0;
+        
+        
+        /* 버켓에 재료를 추가하는 순간부터 표시하도록 제거
+        foreach(Bucket bucket in buckets){
+            /**MoveNext오류, 래퍼런스 참조 오류 -> 초기화된 Bucket의 ing을 할당함으로 해결
+            Debug.Log(player.time);
+            Debug.Log(buckets);
+            Debug.Log(bucket);
+            Debug.Log(player.peoplePTime);
+            Debug.Log(bucket.ing.people);
+            /****************************** /
+            player.peoplePTime += bucket.ing.people;
+        }
+        */
+        int temp = 0;
         player.time++;
         foreach(Bucket bucket in buckets)
         {
             if (bucket.expiration > 0)
             {
                 bucket.expiration -= 1;
-                if (bucket.amount >= player.peoplePTime) bucket.amount -= player.peoplePTime;
-                else continue;
-                player.peoplePTime += bucket.ing.people;
+                bucket.amount -= player.peoplePTime;
                 price += bucket.ing.price;
             }
-            else if (bucket.expiration == 0 || bucket.amount == 0){
+            if (bucket.expiration == 0 || bucket.amount <= 0){
+                temp += bucket.ing.people;
                 bucket.init();
             };
          
         }
-        player.money += player.peoplePTime * (price*100);
-        player.money += 1;
+        player.money += player.peoplePTime * (price);
+        player.peoplePTime -= temp;
+
+        yield return new WaitForSeconds(5.0f);
         StartCoroutine("Timer");
+    }
+
+    public void alert(string s){
+        
+        UIManager.instance.UILevel[3].GetComponentInChildren<Text>().text = s;
+        UIManager.instance.UILevel[3].SetActive(true);
+        UIManager.instance.UILevel[0].transform.SetSiblingIndex(UIManager.instance.UILevel[3].transform.GetSiblingIndex()-1);
+        
+        
     }
 }
 

@@ -7,19 +7,23 @@ using System;
 public class Bucket : MonoBehaviour
 {
     public Ingredients ing;
+    public static int amountBuy = 50;
     public int amount;
     public int expiration;
     public static Sprite defaultImg;
     public int state = 0;
     public GameObject bucketUI;
-    static GameObject preFab;
+    static GameObject bucket_PreFab;
+    public Text inform;
 
     // Start is called before the first frame update
     void Start()
     {
         UIManager UIInstance = UIManager.instance;
-        defaultImg = Resources.Load<Sprite>("UI/ings/고수");
-        preFab = Resources.Load<GameObject>("Prefab/Bucket");
+        defaultImg = Resources.Load<Sprite>("UI/버튼");
+        bucket_PreFab = Resources.Load<GameObject>("Prefab/Bucket");
+        inform = gameObject.GetComponentInChildren<Text>();
+        gameObject.GetComponentInChildren<Text>().text = "바구니 추가\n" + (GameManager.instance.buckets.Count * 100).ToString() + " 원";
     }
 
     // Update is called once per frame
@@ -29,14 +33,20 @@ public class Bucket : MonoBehaviour
     }
     public void bucketAdd(GameObject emptySpace){
 
+        
         if (state == 0){
-        state = 1;
-        this.GetComponent<Image>().sprite = defaultImg;
+            if(GameManager.instance.player.money< GameManager.instance.buckets.Count * 100){
+                GameManager.instance.alert("돈이 부족합니다.");
+                return;
+            }
+        
+        
         bucketUI = gameObject;
         UIManager.instance.buckets.Add(this);
-        bucketUI.GetComponentInChildren<Text>().text = "재고 없음";
 
-        GameObject newEmptySpace = Instantiate(preFab);
+        init();
+        
+        GameObject newEmptySpace = Instantiate(bucket_PreFab);
         RectTransform preFab_tr = newEmptySpace.GetComponent<RectTransform>();
         preFab_tr.SetParent(UIManager.instance.refriPan.transform);
         preFab_tr.localScale = Vector2.one;
@@ -45,16 +55,19 @@ public class Bucket : MonoBehaviour
     }
 
     void ingAdd(GameObject emptyBucket){
+ 
+        UIManager.instance.currentUILevel = 2;
+        UIManager.instance.UILevel[0].transform.SetSiblingIndex(UIManager.instance.UILevel[UIManager.instance.currentUILevel].transform.GetSiblingIndex()-1);
+        UIManager.instance.UILevel[UIManager.instance.currentUILevel].SetActive(true);
+        UIManager.instance.currentBucket = emptyBucket.GetComponent<Bucket>();
 
-        
-        // 재료 선택창, 이후 수량선택 띄우고 해당 오브젝트의 
     }
     public void init(){
-        ing = null;
+        ing = Ingredients.defaultIng;
         amount = 0;
         expiration = 0;
         state = 1;
         bucketUI.GetComponent<Image>().sprite = defaultImg;
-        bucketUI.GetComponentInChildren<Text>().text = "재고 없음";
+        bucketUI.GetComponentInChildren<Text>().text = "재고 없음\n";
     }
 }

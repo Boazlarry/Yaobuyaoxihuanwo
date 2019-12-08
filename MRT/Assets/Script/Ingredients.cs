@@ -7,11 +7,15 @@ using System;
 [Serializable]
 public class Ingredients
 {
-    public int people;
+    public int people=0;
     public int price;
     public Sprite img;
     public string ingName;
     public int expiration;
+    public GameObject ingUI;
+    public IngPan ingPan;
+
+    public static Ingredients defaultIng = new Ingredients();
 
     // Start is called before the first frame update
     void Start()
@@ -24,4 +28,5 @@ public class Ingredients
     {
         
     }
+
 }

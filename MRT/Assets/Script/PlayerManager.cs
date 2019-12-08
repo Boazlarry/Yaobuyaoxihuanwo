@@ -8,4 +8,5 @@ public class PlayerManager
     public int peoplePTime = 0;
     public int time = 0;
     public List<Bucket> buckets = new List<Bucket>();
+    
 }

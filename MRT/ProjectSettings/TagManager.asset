@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - target
   layers:
   - Default
   - TransparentFX
@@ -16,8 +17,8 @@ TagManager:
   - ingPn
   - souce
   - refri
-  - 
-  - 
+  - outTouch
+  - top
   - 
   - 
   - 
@@ -46,4 +47,10 @@ TagManager:
     locked: 0
   - name: ingPn
     uniqueID: 1293083017
+    locked: 0
+  - name: outTouch
+    uniqueID: 3261588997
+    locked: 0
+  - name: top
+    uniqueID: 1565236799
     locked: 0

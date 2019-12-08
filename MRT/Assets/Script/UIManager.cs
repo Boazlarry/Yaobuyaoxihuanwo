@@ -14,22 +14,41 @@ public class UIManager : MonoBehaviour
     public GameObject refriPan;
     public GameObject choosePan;
     GameObject optionPan;
-    //public List<GameObject> buckets_UI;
+    GameObject ing_PreFab;
+    public Bucket currentBucket;
+    public int currentUILevel = 0;
+
     public List<Bucket> buckets;
     public List<Ingredients> ingredients;
-    
+    public List<GameObject> UILevel = new List<GameObject>();
 
     void Start()
     {
+        ing_PreFab = Resources.Load<GameObject>("Prefab/ingUI");
         instance=this;
+
+        // 재료창 동적 생성
+        foreach(Ingredients ingredient in ingredients){
+            ingredient.ingUI = Instantiate(ing_PreFab);
+            RectTransform preFab_tr = ingredient.ingUI.GetComponent<RectTransform>();
+            preFab_tr.SetParent(choosePan.transform);
+            preFab_tr.localScale = Vector2.one;
+            
+            IngPan iP = ingredient.ingUI.GetComponent<IngPan>();
+            iP.ingredient = ingredient;
+            ingredient.ingPan = iP;
+            iP.inform.text = ingredient.ingName + "\n" + ingredient.expiration.ToString() + " 시간\n" + ingredient.price.ToString() + " 원\n" + ingredient.people.ToString() + " 명";
+            iP.image.sprite = ingredient.img; 
+
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        money.text = GameManager.instance.player.money.ToString();
-        people.text = GameManager.instance.player.peoplePTime.ToString();
+        money.text = GameManager.instance.player.money.ToString() + " 원";
+        people.text = GameManager.instance.player.peoplePTime.ToString() + " 명";
         time.text = GameManager.instance.player.time.ToString() + " 시간";
        
        buckets = GameManager.instance.buckets;
@@ -38,7 +57,7 @@ public class UIManager : MonoBehaviour
         {
             if (bucket.state == 2)
             {
-                bucket.GetComponentInChildren<Text>().text = bucket.ing.ingName + "\n유통기한 : " + bucket.expiration.ToString() + "\n수량 : " + bucket.amount.ToString();
+                bucket.inform.text = bucket.ing.ingName + "\n유통기한 : " + bucket.expiration.ToString() + "\n수량 : " + bucket.amount.ToString();
             }
         }
         
@@ -46,18 +65,26 @@ public class UIManager : MonoBehaviour
     
     // UI에서 소스창 열고 닫을 때 사용 
     public void buttonClick(GameObject obj){
+        currentUILevel = 1;
+        UILevel[0].SetActive(true);
     if (obj.activeSelf) obj.SetActive(false);
-    else obj.SetActive(true);
+    else {
+        UILevel[currentUILevel-1].transform.SetSiblingIndex(UILevel[currentUILevel].transform.GetSiblingIndex()-1);
+        obj.SetActive(true);
+         }
     }
     
     public void buttonClickOptPan(GameObject obj){
-    // 활성화된 옵션팬이 없는 경우
+    /*활성화된 옵션팬이 없는 경우*/
     if (!optionPan) {
         obj.SetActive(true);
+        
         optionPan = obj;
     }
+    /**************************/
     if (obj.Equals(optionPan));
     else {
+        
         obj.SetActive(true);
         optionPan.SetActive(false);
         optionPan = obj;
@@ -65,4 +92,21 @@ public class UIManager : MonoBehaviour
     
     }
 
+    public void outTouch(){
+
+        if(UILevel[3].activeSelf) {
+            UILevel[3].SetActive(false);
+            currentUILevel += 1;
+        }
+        if(currentUILevel==1) {
+            UILevel[1].SetActive(false);
+            UILevel[0].SetActive(false);
+
+        }
+        UILevel[currentUILevel].SetActive(false);
+        currentUILevel -= 1;
+        UILevel[0].transform.SetSiblingIndex(UILevel[currentUILevel].transform.GetSiblingIndex()-1);
+        if(currentUILevel == 2) UILevel[0].transform.SetSiblingIndex(UILevel[currentUILevel].transform.GetSiblingIndex()-1); 
+        
+    }
 }
