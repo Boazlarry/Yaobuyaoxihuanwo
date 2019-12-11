@@ -24,12 +24,14 @@ public class IngPan : MonoBehaviour
             GameManager.instance.alert("돈이 부족합니다");
             return;
         }
+        else GameManager.instance.player.money -= ingredient.price * Bucket.amountBuy;
         Bucket b = UIManager.instance.currentBucket;
-        if (b.state == 2) GameManager.instance.player.peoplePTime -= b.ing.people;
+        
+        if (b.state == 2) GameManager.instance.player.ingPeople -= b.ing.people;
         
         b.amount = Bucket.amountBuy;
         b.ing = ingredient;
-        GameManager.instance.player.peoplePTime += b.ing.people;
+        GameManager.instance.player.ingPeople += b.ing.people;
         b.expiration = ingredient.expiration;
         b.state = 2;
         b.bucketUI.GetComponent<Image>().sprite = ingredient.img;

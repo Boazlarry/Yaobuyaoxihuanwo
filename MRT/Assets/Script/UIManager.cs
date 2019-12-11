@@ -13,7 +13,7 @@ public class UIManager : MonoBehaviour
     public GameObject soucePan;
     public GameObject refriPan;
     public GameObject choosePan;
-    GameObject optionPan;
+    public GameObject optionPan;
     GameObject ing_PreFab;
     public Bucket currentBucket;
     public int currentUILevel = 0;
@@ -21,6 +21,8 @@ public class UIManager : MonoBehaviour
     public List<Bucket> buckets;
     public List<Ingredients> ingredients;
     public List<GameObject> UILevel = new List<GameObject>();
+    
+    public Slider[] souceSliders;
 
     void Start()
     {
@@ -50,8 +52,9 @@ public class UIManager : MonoBehaviour
         money.text = GameManager.instance.player.money.ToString() + " 원";
         people.text = GameManager.instance.player.peoplePTime.ToString() + " 명";
         time.text = GameManager.instance.player.time.ToString() + " 시간";
-       
-       buckets = GameManager.instance.buckets;
+
+        GameManager.instance.player.peoplePTime = (int)(GameManager.instance.player.ingPeople * GameManager.instance.player.playerSouce.cmpSouce(GameManager.instance.gameManagerSouce));
+        buckets = GameManager.instance.buckets;
 
         foreach (Bucket bucket in buckets)
         {
@@ -82,7 +85,7 @@ public class UIManager : MonoBehaviour
         optionPan = obj;
     }
     /**************************/
-    if (obj.Equals(optionPan));
+    if (obj.Equals(optionPan)) return;
     else {
         
         obj.SetActive(true);
@@ -108,5 +111,12 @@ public class UIManager : MonoBehaviour
         UILevel[0].transform.SetSiblingIndex(UILevel[currentUILevel].transform.GetSiblingIndex()-1);
         if(currentUILevel == 2) UILevel[0].transform.SetSiblingIndex(UILevel[currentUILevel].transform.GetSiblingIndex()-1); 
         
+    }
+
+    public void souceValChange(int souce){
+        Debug.Log(souce+"번째값 변경");
+        GameManager.instance.player.playerSouce.souces[souce] = (int)souceSliders[souce].value;
+        Debug.Log("플레이어 소스 : "+GameManager.instance.player.playerSouce.souces[souce]);
+        Debug.Log("슬라이더 소스 : "+(int)souceSliders[souce].value);
     }
 }

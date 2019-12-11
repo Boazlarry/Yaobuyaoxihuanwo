@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public PlayerManager player = new PlayerManager();
     public UIManager UI = UIManager.instance;
     public List<Bucket> buckets;
+    public Souce gameManagerSouce = new Souce();
     int price;
 
     
@@ -23,6 +24,8 @@ public class GameManager : MonoBehaviour
         // 이 클래스의 스태틱 인스턴스를 선언
         instance = this;
         // 스크린 비율 설정
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
+
 		Screen.SetResolution(1920,1080, true);
         buckets = player.buckets;
 
@@ -59,32 +62,23 @@ public class GameManager : MonoBehaviour
      */
     IEnumerator Timer()
     {
+        yield return new WaitForSeconds(3.0f);
         
+        if (player.time % 24 == 0) gameManagerSouce.setRandom();
+        player.time++;
 
         price = 0;
-        
-        
-        /* 버켓에 재료를 추가하는 순간부터 표시하도록 제거
-        foreach(Bucket bucket in buckets){
-            /**MoveNext오류, 래퍼런스 참조 오류 -> 초기화된 Bucket의 ing을 할당함으로 해결
-            Debug.Log(player.time);
-            Debug.Log(buckets);
-            Debug.Log(bucket);
-            Debug.Log(player.peoplePTime);
-            Debug.Log(bucket.ing.people);
-            /****************************** /
-            player.peoplePTime += bucket.ing.people;
-        }
-        */
         int temp = 0;
-        player.time++;
+        
         foreach(Bucket bucket in buckets)
         {
+            
             if (bucket.expiration > 0)
             {
                 bucket.expiration -= 1;
                 bucket.amount -= player.peoplePTime;
                 price += bucket.ing.price;
+                if(bucket.ing.price == 0) price +=1;
             }
             if (bucket.expiration == 0 || bucket.amount <= 0){
                 temp += bucket.ing.people;
@@ -92,10 +86,11 @@ public class GameManager : MonoBehaviour
             };
          
         }
+        
         player.money += player.peoplePTime * (price);
-        player.peoplePTime -= temp;
+        player.ingPeople -= temp;
 
-        yield return new WaitForSeconds(5.0f);
+        
         StartCoroutine("Timer");
     }
 

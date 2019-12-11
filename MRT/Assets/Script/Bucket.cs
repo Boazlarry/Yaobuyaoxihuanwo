@@ -7,7 +7,7 @@ using System;
 public class Bucket : MonoBehaviour
 {
     public Ingredients ing;
-    public static int amountBuy = 50;
+    public static int amountBuy = 30;
     public int amount;
     public int expiration;
     public static Sprite defaultImg;
@@ -40,7 +40,7 @@ public class Bucket : MonoBehaviour
                 return;
             }
         
-        
+        GameManager.instance.player.money -= GameManager.instance.buckets.Count * 100;
         bucketUI = gameObject;
         UIManager.instance.buckets.Add(this);
 
