@@ -42,13 +42,13 @@ public class GameManager : MonoBehaviour
      * 1.scene에서 main으로 레벨 전환할 때 사용
      * 
      */
-	public void GameStart(string sceneName)
+	public void SeanMove(string sceneName)
 	{
         Debug.Log(sceneName+"으로 레벨 이동");
 		SceneManager.LoadScene (sceneName);
 
         // 타이머 시작
-        if (sceneName.Equals("game")) StartCoroutine("Timer");
+        if (sceneName.Equals("Main")) StartCoroutine("Timer");
     }
 
     /* 

@@ -620,14 +620,14 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1078384524}
-        m_MethodName: GameStart
+        m_MethodName: SeanMove
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: game
+          m_StringArgument: Main
           m_BoolArgument: 0
         m_CallState: 1
       - m_Target: {fileID: 0}
@@ -799,5 +799,24 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+<<<<<<< Updated upstream:MRT/Assets/Scenes/1.unity
+=======
+    - target: {fileID: 1255521596677274763, guid: 3a696268e4454c84b9bae9ce50d66be8,
+        type: 3}
+      propertyPath: m_Name
+      value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1255521596677274763, guid: 3a696268e4454c84b9bae9ce50d66be8,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 1255521596677274765, guid: 3a696268e4454c84b9bae9ce50d66be8,
+        type: 3}
+      propertyPath: UI
+      value: 
+      objectReference: {fileID: 4663042327199312565, guid: fb8f39f08b58a8a47b74a52d126ce5d4,
+        type: 3}
+>>>>>>> Stashed changes:MRT/Assets/Scenes/Login.unity
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a696268e4454c84b9bae9ce50d66be8, type: 3}
