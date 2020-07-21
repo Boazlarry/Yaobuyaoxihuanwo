@@ -30,7 +30,7 @@ public class Basket : MonoBehaviour
 
     public void AddBasket(GameObject basketObject)
     {
-        uiManager.AddBasket(basket);
+        uiManager.AddBasket(basketObject);
     }
 
     public void Init()
@@ -38,7 +38,7 @@ public class Basket : MonoBehaviour
         ingredient = Ingredient.defaultIngredient;
         amount = 0;
         expiration = 0;
-        state = false;
+        state = -1;
         this.GetComponent<Image>().sprite = UIManager.defaultBasketImage;
         this.GetComponentInChildren<Text>().text = "재고 없음\n";
     }

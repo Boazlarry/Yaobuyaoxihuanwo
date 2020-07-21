@@ -7,7 +7,7 @@ public class UIManager : MonoBehaviour
 {
 
     public static UIManager instance;
-    private static GameManager gameManager = GameManager.instance;
+    private GameManager gameManager = GameManager.instance;
     private GameObject ingredientPreFab;
     
 
@@ -16,7 +16,7 @@ public class UIManager : MonoBehaviour
     public Text time;
 
     public GameObject ingredientSelctionPannel;
-    public GameObject refrigeratorPannel;
+    public GameObject basketsPannel;
     public GameObject currentPannel;
     public GameObject alertPannel;
 
@@ -142,43 +142,33 @@ public class UIManager : MonoBehaviour
     {
         Basket basketClass = basketObject.GetComponent<Basket>();
 
-        if (!basketClass.state)
+        if (basketClass.state == 0)
         {
             if(gameManager.player.money < gameManager.baskets.Count * 100)
             {
-                gameManager.alert("돈이 부족합니다.");
+                Alert("돈이 부족합니다.");
                 return;
             }
         
             gameManager.player.money -= gameManager.baskets.Count * 100;
-            gameManager.baskets.Add(basket.GetComponent<Basket>());
+            gameManager.baskets.Add(basketClass.GetComponent<Basket>());
 
             basketClass.Init();
-            
             GameObject newBasket = Instantiate(basketPreFab);
             RectTransform basketTransform = newBasket.GetComponent<RectTransform>();
-            basketTransform.SetParent(instance.refrigeratorPannel.transform);
+            basketTransform.SetParent(instance.basketsPannel.transform);
             basketTransform.localScale = Vector2.one;
         }
-        else
+        else if(basketClass.state == -1 || basketClass.state == 1)
         {
             instance.currentBasketObject = basketObject;
             OpenPannel(ingredientSelctionPannel);
         }
     }
     
-    public void AddIngredientToBasket(Ingredient ingredient)
-    {
-        basketClass.amount = basketClass.buyAmount;
-        basketClass.ingredient = ingredient;
-        basket.expiration = ingredient.expiration;
-        basket.state = true;
-        basket.GetComponent<Image>().sprite = ingredient.image;
-    }
-    
     public void Alert(string alertMessage)
     {
-        alertPannel.GetComponentInChildren<Text>.text = alertMessage;
+        alertPannel.GetComponentInChildren<Text>().text = alertMessage;
         OpenPannel(alertPannel);
     }
 }

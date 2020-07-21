@@ -49,9 +49,7 @@ public class IngredientPannel : MonoBehaviour
         basketClass.amount = buyAmount;
         basketClass.ingredient = ingredient;
         basketClass.expiration = ingredient.expiration;
-        basketClass.state = true;
-        
-
-        uiManager.AddIngredientToBasket(ingredient);
+        basketClass.state = 1;
+        basketObject.GetComponent<Image>().sprite = ingredient.image;
     }
 }

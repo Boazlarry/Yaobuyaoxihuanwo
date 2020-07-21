@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     // 이 클래스의 스태틱 인스턴스 생성
     public static GameManager instance;
     // 플레이어매니저 클래스를 생성
-    public PlayerManager player = new PlayerManager();
+    public PlayerManager player;
     public UIManager UI = UIManager.instance;
     public List<Basket> baskets;
     public Souce gameManagerSouce = new Souce();
@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = new PlayerManager();
         // 객체 유지 선언
         DontDestroyOnLoad(gameObject);
         // 이 클래스의 스태틱 인스턴스를 선언
@@ -88,7 +89,7 @@ public class GameManager : MonoBehaviour
         }
         
         player.money += player.peoplePTime * (price);
-        player.ingPeople -= temp;
+        player.ingredientPeople -= temp;
 
         
         StartCoroutine("Timer");

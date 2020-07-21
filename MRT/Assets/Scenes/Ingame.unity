@@ -3760,15 +3760,15 @@ RectTransform:
   m_GameObject: {fileID: 1573224895}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.39270833, y: 0.39270833, z: 0.39270833}
   m_Children:
   - {fileID: 461892262}
-  m_Father: {fileID: 1708115721}
+  m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 960, y: 539.8409}
   m_SizeDelta: {x: 1000, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1578035658
@@ -4270,7 +4270,6 @@ RectTransform:
   m_Children:
   - {fileID: 2024741117}
   - {fileID: 789014160}
-  - {fileID: 1573224898}
   m_Father: {fileID: 2027207664}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4454,7 +4453,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1846935291
 GameObject:
@@ -5133,9 +5132,10 @@ MonoBehaviour:
   customer: {fileID: 613867213}
   time: {fileID: 2042783856}
   ingredientSelctionPannel: {fileID: 993193622}
-  refrigeratorPannel: {fileID: 494508190}
+  basketsPannel: {fileID: 809971242}
   currentPannel: {fileID: 1041567526}
-  currentBasket: {fileID: 0}
+  alertPannel: {fileID: 1573224895}
+  currentBasketObject: {fileID: 0}
   ingredients:
   - image: {fileID: 21300000, guid: 57811ac1e6c02094a9d08fece6825dee, type: 3}
     ingredientName: s
