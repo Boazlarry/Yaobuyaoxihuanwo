@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     // 플레이어매니저 클래스를 생성
     public PlayerManager player = new PlayerManager();
     public UIManager UI = UIManager.instance;
-    public List<Bucket> buckets;
+    public List<Basket> baskets;
     public Souce gameManagerSouce = new Souce();
     int price;
 
@@ -20,14 +20,14 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         // 객체 유지 선언
-        DontDestroyOnLoad (gameObject);
+        DontDestroyOnLoad(gameObject);
         // 이 클래스의 스태틱 인스턴스를 선언
         instance = this;
         // 스크린 비율 설정
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
 
 		Screen.SetResolution(1920,1080, true);
-        buckets = player.buckets;
+        baskets = player.baskets;
 
 		Debug.Log("게임시작");
     
@@ -40,18 +40,18 @@ public class GameManager : MonoBehaviour
     }
     
     /*
-     * void GameStart(string sceneName)
+     * void changeScene(string sceneName)
      * sceneName을 문자열로 받아 해당 씬으로 전환하는 함수
-     * 1.scene에서 main으로 레벨 전환할 때 사용
+     * 
      * 
      */
-	public void GameStart(string sceneName)
+	public void ChangeScene(string sceneName)
 	{
         Debug.Log(sceneName+"으로 레벨 이동");
-		SceneManager.LoadScene (sceneName);
-
-        // 타이머 시작
-        if (sceneName.Equals("game")) StartCoroutine("Timer");
+		SceneManager.LoadScene(sceneName);
+        
+        
+        if (sceneName.Equals("Ingame")) StartCoroutine("Timer"); // 타이머 시작
     }
 
     /* 
@@ -70,19 +70,19 @@ public class GameManager : MonoBehaviour
         price = 0;
         int temp = 0;
         
-        foreach(Bucket bucket in buckets)
+        foreach(Basket basket in baskets)
         {
             
-            if (bucket.expiration > 0)
+            if (basket.expiration > 0)
             {
-                bucket.expiration -= 1;
-                bucket.amount -= player.peoplePTime;
-                price += bucket.ing.price;
-                if(bucket.ing.price == 0) price +=1;
+                basket.expiration -= 1;
+                basket.amount -= player.peoplePTime;
+                price += basket.ingredient.price;
+                if(basket.ingredient.price == 0) price +=1;
             }
-            if (bucket.expiration == 0 || bucket.amount <= 0){
-                temp += bucket.ing.people;
-                bucket.init();
+            if (basket.expiration == 0 || basket.amount <= 0){
+                temp += basket.ingredient.people;
+                basket.Init();
             };
          
         }
@@ -94,14 +94,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine("Timer");
     }
 
-    public void alert(string s){
-        
-        UIManager.instance.UILevel[3].GetComponentInChildren<Text>().text = s;
-        UIManager.instance.UILevel[3].SetActive(true);
-        UIManager.instance.UILevel[0].transform.SetSiblingIndex(UIManager.instance.UILevel[3].transform.GetSiblingIndex()-1);
-        
-        
-    }
+
 }
 
 

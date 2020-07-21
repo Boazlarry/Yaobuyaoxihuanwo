@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 1441258870714967874}
   - component: {fileID: 1441258870714967875}
   - component: {fileID: 1441258870714967872}
-  - component: {fileID: 7098731714982139330}
+  - component: {fileID: -9091796852480557804}
   m_Layer: 5
-  m_Name: Bucket
+  m_Name: Basket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,6 +63,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -119,8 +120,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7098731714982139330}
-        m_MethodName: bucketAdd
+      - m_Target: {fileID: -9091796852480557804}
+        m_MethodName: AddBasket
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1441258870714967878}
@@ -130,7 +131,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &7098731714982139330
+--- !u!114 &-9091796852480557804
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,19 +140,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1441258870714967878}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16d235a373ae10a46821aa9000cbc9bb, type: 3}
+  m_Script: {fileID: 11500000, guid: d2a8914621fd3f34b8beb76eed9674e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ing:
+  state: 0
+  ingredient:
+    image: {fileID: 0}
+    ingredientName: 
     people: 0
     price: 0
-    img: {fileID: 0}
-    ingName: 
     expiration: 0
   amount: 0
   expiration: 0
-  state: 0
-  bucketUI: {fileID: 0}
+  information: {fileID: 1441258871922481941}
 --- !u!1 &1441258871922481947
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,6 +213,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []

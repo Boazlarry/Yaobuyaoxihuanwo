@@ -60,6 +60,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -137,6 +138,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -210,6 +212,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -289,6 +292,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -369,7 +373,7 @@ GameObject:
   - component: {fileID: 5403409110429001084}
   - component: {fileID: 8143867672314629987}
   m_Layer: 8
-  m_Name: ingUI
+  m_Name: IngredientPreFab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -421,6 +425,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 0.945946, b: 0, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -446,17 +451,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc15c5d686a6d0f458ead47f745d9373, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inform: {fileID: 9183505531969350000}
+  ingredientPannelObject: {fileID: 0}
+  information: {fileID: 8032694653652225937}
   image: {fileID: 42067632159588675}
   button: {fileID: 8680340687747380362}
   ingredient:
+    image: {fileID: 0}
+    ingredientName: 
     people: 0
     price: 0
-    img: {fileID: 0}
-    ingName: 
     expiration: 0
-    ingUI: {fileID: 0}
-    ingPan: {fileID: 0}
 --- !u!1 &8787400604090007352
 GameObject:
   m_ObjectHideFlags: 0
@@ -517,6 +521,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
