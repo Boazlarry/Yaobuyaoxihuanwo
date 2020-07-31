@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class IngredientPannel : MonoBehaviour
 {
     // Start is called before the first frame update
-    private static GameManager gameManager = GameManager.instance;
-    private static UIManager uiManager = UIManager.instance;
+    private GameManager gameManager = GameManager.instance;
+    private UIManager uiManager = UIManager.instance;
 
     public GameObject ingredientPannelObject;
     public Text information;
@@ -42,7 +42,7 @@ public class IngredientPannel : MonoBehaviour
         } 
         else
         {
-            Debug.Log("UIManager AddIngredientToBasket method error");
+            Debug.Log("IngredientPannel AddIngredient method error");
             //throw;
             return;
         }
@@ -51,5 +51,6 @@ public class IngredientPannel : MonoBehaviour
         basketClass.expiration = ingredient.expiration;
         basketClass.state = 1;
         basketObject.GetComponent<Image>().sprite = ingredient.image;
+        uiManager.AddIngredientIntoBasket();
     }
 }

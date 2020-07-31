@@ -48,7 +48,8 @@ public class UIManager : MonoBehaviour
             ingredientPannel.image.sprite = ingredient.image; 
             
             RectTransform ingredientTransform = ingredientPannel.GetComponent<RectTransform>();
-            ingredientTransform.SetParent(instance.ingredientSelctionPannel.transform);
+            //Debug.Log(instance.ingredientSelctionPannel.transform.GetChild(0)); // 디버그
+            ingredientTransform.SetParent(instance.ingredientSelctionPannel.transform.GetChild(0).transform);
             ingredientTransform.localScale = Vector2.one;
         }
     }
@@ -56,35 +57,35 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*
-        money.text = GameManager.instance.player.money.ToString() + " 원";
-        customer.text = GameManager.instance.player.peoplePTime.ToString() + " 명";
-        time.text = GameManager.instance.player.time.ToString() + " 시간";
+        money.text = gameManager.player.money.ToString() + " 원";
+        customer.text = gameManager.player.peoplePTime.ToString() + " 명";
+        time.text = gameManager.player.time.ToString() + " 시간";
 
         GameManager.instance.player.peoplePTime = (int)(GameManager.instance.player.ingPeople * GameManager.instance.player.playerSouce.cmpSouce(GameManager.instance.gameManagerSouce));
         baskets = GameManager.instance.baskets;
 
-        foreach (Basket basket in baskets)
+        foreach (Basket basket in gameManager.baskets)
         {
-            if (basket.state == 2)
+            if (basket.state == 1)
             {
                 basket.inform.text = basket.ing.ingName + "\n유통기한 : " + basket.expiration.ToString() + "\n수량 : " + basket.amount.ToString();
             }
         }
-        */
     }
     
     // method for open a pannel. using stack
     public void OpenPannel(GameObject targetPannel)
     {
         int uiStackLength = uiStack.Count;
+        
         if(uiStackLength == 2)
         {
             uiStack[1].SetActive(true);
+            
         }
         else if(uiStackLength > 2)
         {
-            GameObject temp = uiStack[uiStackLength - 2];   // set BackgroundPannel as a top
+            GameObject temp = uiStack[uiStackLength - 1];   // set BackgroundPannel as a top
             uiStack[uiStackLength - 1] = uiStack[uiStackLength - 2];
             uiStack[uiStackLength - 2] = temp;
             uiStack[uiStackLength - 1].transform.SetSiblingIndex(uiStack[uiStackLength - 2].transform.GetSiblingIndex());
@@ -95,7 +96,10 @@ public class UIManager : MonoBehaviour
             //throw;
         }
         uiStack.Add(targetPannel);
-        uiStack[uiStackLength].transform.SetSiblingIndex(uiStack[uiStackLength - 1].transform.GetSiblingIndex()+1);
+        uiStack[uiStackLength - 1].transform.SetParent(targetPannel.transform.parent.transform, false);
+        
+        uiStack[uiStackLength].transform.SetAsLastSibling();
+        uiStack[uiStackLength - 1].transform.SetSiblingIndex(targetPannel.transform.GetSiblingIndex() - 1); // move BackgroundPannel to the behind of top pannel
         targetPannel.SetActive(true);
     }
 
@@ -110,11 +114,16 @@ public class UIManager : MonoBehaviour
     public void ClosePannel()
     {
         int uiStackLength = uiStack.Count;
+        
+        uiStack[uiStackLength - 2].transform.SetParent(uiStack[uiStackLength - 3].transform.parent.transform, false);
+        uiStack[uiStackLength - 2].transform.SetSiblingIndex(uiStack[uiStackLength - 3].transform.GetSiblingIndex()); // move BackgroundPannel to the behind of top pannel
         uiStack[uiStackLength - 1].SetActive(false);
         uiStack.RemoveAt(uiStackLength - 1);
+
         if(uiStackLength == 3)  // when only one pannel is opened
         {
-            uiStack[uiStackLength - 2].SetActive(false);    // disable BackgrounPannel 
+            uiStack[1].SetActive(false);    // disable BackgrounPannel
+            uiStack[1].transform.SetAsLastSibling();
         }
         else if(uiStackLength > 3)  // when more than one pannel is opened
         {
@@ -127,6 +136,7 @@ public class UIManager : MonoBehaviour
             Debug.Log("UIManager ClosePannel method error");
             //throw;
         }
+
         
     }
 
@@ -170,5 +180,9 @@ public class UIManager : MonoBehaviour
     {
         alertPannel.GetComponentInChildren<Text>().text = alertMessage;
         OpenPannel(alertPannel);
+    }
+
+    public void AddIngredientIntoBasket(){
+        ClosePannel();
     }
 }
