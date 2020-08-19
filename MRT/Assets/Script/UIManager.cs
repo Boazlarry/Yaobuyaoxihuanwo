@@ -44,13 +44,16 @@ public class UIManager : MonoBehaviour
             GameObject ingredientPannelObject = Instantiate(ingredientPreFab);
             IngredientPannel ingredientPannel = ingredientPannelObject.GetComponent<IngredientPannel>();
             ingredientPannel.ingredient = ingredient;
-            ingredientPannel.information.text = ingredient.ingredientName + "\n" + ingredient.expiration.ToString() + " 시간\n" + ingredient.price.ToString() + " 원\n" + ingredient.people.ToString() + " 명";
+            ingredientPannel.information.text = ingredient.ingredientName + "\n" + ingredient.expiration.ToString() + " 시간\n" + ingredient.price.ToString() + " 원\n" + ingredient.benefit.ToString() + " 원\n" + ingredient.people.ToString() + " 명";
             ingredientPannel.image.sprite = ingredient.image; 
             
             RectTransform ingredientTransform = ingredientPannel.GetComponent<RectTransform>();
-            //Debug.Log(instance.ingredientSelctionPannel.transform.GetChild(0)); // 디버그
             ingredientTransform.SetParent(instance.ingredientSelctionPannel.transform.GetChild(0).transform);
             ingredientTransform.localScale = Vector2.one;
+        }
+        foreach(Basket basket in gameManager.player.baskets)
+        {
+
         }
     }
 
@@ -61,14 +64,11 @@ public class UIManager : MonoBehaviour
         customer.text = gameManager.player.peoplePTime.ToString() + " 명";
         time.text = gameManager.player.time.ToString() + " 시간";
 
-        GameManager.instance.player.peoplePTime = (int)(GameManager.instance.player.ingPeople * GameManager.instance.player.playerSouce.cmpSouce(GameManager.instance.gameManagerSouce));
-        baskets = GameManager.instance.baskets;
-
-        foreach (Basket basket in gameManager.baskets)
+        foreach (Basket basket in gameManager.player.baskets)
         {
             if (basket.state == 1)
             {
-                basket.inform.text = basket.ing.ingName + "\n유통기한 : " + basket.expiration.ToString() + "\n수량 : " + basket.amount.ToString();
+                basket.information.text = basket.ingredient.ingredientName + "\n유통기한 : " + basket.expiration.ToString() + "\n수량 : " + basket.amount.ToString();
             }
         }
     }
@@ -140,12 +140,12 @@ public class UIManager : MonoBehaviour
         
     }
 
-    public void SouceValChange(int souce)
+    public void SouceValChange(int souceIndex)
     {
-        Debug.Log(souce+"번째값 변경");
-        GameManager.instance.player.playerSouce.souces[souce] = (int)souceSliders[souce].value;
-        Debug.Log("플레이어 소스 : "+GameManager.instance.player.playerSouce.souces[souce]);
-        Debug.Log("슬라이더 소스 : "+(int)souceSliders[souce].value);
+        gameManager.player.souce.souces[souceIndex] = (int)souceSliders[souceIndex].value;
+        //Debug.Log(souceIndex + "번째값 변경");
+        //Debug.Log("플레이어 소스 : " + gameManager.player.souce.souces[souceIndex]);
+        //Debug.Log("슬라이더 소스 : " + (int)souceSliders[souceIndex].value);
     }
 
     public void AddBasket(GameObject basketObject)
@@ -154,14 +154,14 @@ public class UIManager : MonoBehaviour
 
         if (basketClass.state == 0)
         {
-            if(gameManager.player.money < gameManager.baskets.Count * 100)
+            if(gameManager.player.money < gameManager.player.baskets.Count * 100)
             {
                 Alert("돈이 부족합니다.");
                 return;
             }
         
-            gameManager.player.money -= gameManager.baskets.Count * 100;
-            gameManager.baskets.Add(basketClass.GetComponent<Basket>());
+            gameManager.player.money -= gameManager.player.baskets.Count * 100;
+            gameManager.player.baskets.Add(basketClass.GetComponent<Basket>());
 
             basketClass.Init();
             GameObject newBasket = Instantiate(basketPreFab);

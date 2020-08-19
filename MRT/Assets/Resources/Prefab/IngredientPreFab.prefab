@@ -164,7 +164,7 @@ GameObject:
   - component: {fileID: 643460342588819941}
   - component: {fileID: 8032694653652225937}
   m_Layer: 8
-  m_Name: Text
+  m_Name: Information
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -186,8 +186,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -120, y: 0}
-  m_SizeDelta: {x: 160, y: 150}
+  m_AnchoredPosition: {x: -120, y: 16}
+  m_SizeDelta: {x: 160, y: 187.875}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &643460342588819941
 CanvasRenderer:
@@ -229,7 +229,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.3
-  m_Text: "\n\uC720\uD1B5\uAE30\uD55C:\n\uAC00\uACA9:\n\uC0AC\uB78C\uC218:"
+  m_Text: "\n\uC720\uD1B5\uAE30\uD55C :\n\uAD6C\uB9E4\uAC00\uACA9 :\n\uD310\uB9E4\uAC00\uACA9
+    :\n\uD638\uAC1D \uC218 :"
 --- !u!1 &3502601799160538444
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,7 +351,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8143867672314629987}
-        m_MethodName: ingBuy
+        m_MethodName: AddIngredient
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -452,7 +453,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ingredientPannelObject: {fileID: 0}
-  information: {fileID: 8032694653652225937}
+  information: {fileID: 9183505531969350000}
   image: {fileID: 42067632159588675}
   button: {fileID: 8680340687747380362}
   ingredient:
@@ -460,7 +461,9 @@ MonoBehaviour:
     ingredientName: 
     people: 0
     price: 0
+    benefit: 0
     expiration: 0
+  buyAmount: 30
 --- !u!1 &8787400604090007352
 GameObject:
   m_ObjectHideFlags: 0
@@ -473,7 +476,7 @@ GameObject:
   - component: {fileID: 9135060671547965520}
   - component: {fileID: 9183505531969350000}
   m_Layer: 8
-  m_Name: target
+  m_Name: Detail
   m_TagString: target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -495,8 +498,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 120, y: 0}
-  m_SizeDelta: {x: 160, y: 150}
+  m_AnchoredPosition: {x: 120, y: 15.999994}
+  m_SizeDelta: {x: 160, y: 187.875}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9135060671547965520
 CanvasRenderer:

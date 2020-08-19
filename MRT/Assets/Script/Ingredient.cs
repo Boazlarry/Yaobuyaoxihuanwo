@@ -11,6 +11,7 @@ public class Ingredient
     public string ingredientName;
     public int people=0;
     public int price;
+    public int benefit;
     public int expiration;
     public static Ingredient defaultIngredient = new Ingredient();
 }

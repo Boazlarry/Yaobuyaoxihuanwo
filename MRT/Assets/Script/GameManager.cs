@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -11,26 +13,23 @@ public class GameManager : MonoBehaviour
     // 플레이어매니저 클래스를 생성
     public PlayerManager player;
     public UIManager UI = UIManager.instance;
-    public List<Basket> baskets;
-    public Souce gameManagerSouce = new Souce();
-    int price;
+    public Souce systemSouce = new Souce();
+
+    public string dataFileName = ".json";
 
     
     // Start is called before the first frame update
     void Start()
     {
-        player = new PlayerManager();
+        player = LoadData();
         // 객체 유지 선언
         DontDestroyOnLoad(gameObject);
         // 이 클래스의 스태틱 인스턴스를 선언
         instance = this;
         // 스크린 비율 설정
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
-
 		Screen.SetResolution(1920,1080, true);
-        baskets = player.baskets;
-
-		Debug.Log("게임시작");
+        Debug.Log("게임시작");
     
     }
 
@@ -63,39 +62,62 @@ public class GameManager : MonoBehaviour
      */
     IEnumerator Timer()
     {
+        player = SaveData();
         yield return new WaitForSeconds(3.0f);
-        
-        if (player.time % 24 == 0) gameManagerSouce.setRandom();
         player.time++;
-
-        price = 0;
-        int temp = 0;
+        if (player.time % 24 == 0) systemSouce.SetRandom();
         
-        foreach(Basket basket in baskets)
+        int totalPeople = 0;
+        int totalPrice = 0;
+        
+        foreach(Basket basket in player.baskets)
         {
-            
+            totalPeople += basket.ingredient.people;
+            totalPrice += basket.ingredient.benefit;
+        }
+        player.peoplePTime = (int)(totalPeople * systemSouce.CmpSouce(player.souce));
+        player.money += player.peoplePTime * totalPrice;
+        //Debug.Log(systemSouce.CmpSouce(playerSouce));
+        foreach(Basket basket in player.baskets)
+        {
             if (basket.expiration > 0)
             {
                 basket.expiration -= 1;
                 basket.amount -= player.peoplePTime;
-                price += basket.ingredient.price;
-                if(basket.ingredient.price == 0) price +=1;
             }
-            if (basket.expiration == 0 || basket.amount <= 0){
-                temp += basket.ingredient.people;
+            if (basket.expiration == 0 || basket.amount <= 0)
+            {
                 basket.Init();
             };
          
         }
-        
-        player.money += player.peoplePTime * (price);
-        player.ingredientPeople -= temp;
-
-        
         StartCoroutine("Timer");
     }
 
+    public PlayerManager SaveData()
+    {
+        Debug.Log("파일 저장");
+        string filePath = Application.persistentDataPath + dataFileName;
+        string toFile = JsonUtility.ToJson(player);
+        File.WriteAllText(filePath, toFile);
+        return player;
+    }
+
+    public PlayerManager LoadData()
+    {
+        string filePath = Application.persistentDataPath + dataFileName;
+        Debug.Log(filePath);
+        if(File.Exists(filePath))
+        {
+            Debug.Log("로드 성공");
+            string fromFile = File.ReadAllText(filePath);
+            return JsonUtility.FromJson<PlayerManager>(fromFile);
+        }
+        else
+        {
+            Debug.Log("로드 실패, 파일 생성");
+            return new PlayerManager();
+        }
+    }
 
 }
-
-

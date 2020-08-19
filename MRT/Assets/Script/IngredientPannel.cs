@@ -46,10 +46,12 @@ public class IngredientPannel : MonoBehaviour
             //throw;
             return;
         }
+
         basketClass.amount = buyAmount;
         basketClass.ingredient = ingredient;
         basketClass.expiration = ingredient.expiration;
         basketClass.state = 1;
+        gameManager.player.peoplePTime += ingredient.people;
         basketObject.GetComponent<Image>().sprite = ingredient.image;
         uiManager.AddIngredientIntoBasket();
     }
